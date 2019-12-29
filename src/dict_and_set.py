@@ -61,6 +61,16 @@ if element in united_set:
     print("yes")
 
 
+# 12.14.2019
+def format_date(date):
+    parts = date.split(".")  # ["12", "14", "2019"]
+    changed_month = months.get(int(parts[1]))
+    if changed_month is None:
+        return "Error during parsing"
+    else:
+        return parts[0] + " " + changed_month + " " + parts[2]
 
+
+print(format_date("12.14.2019"))
 
 
