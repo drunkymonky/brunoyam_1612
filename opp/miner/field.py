@@ -4,7 +4,7 @@ import random
 
 
 class Field:
-    def __init__(self, size=7):
+    def __init__(self, size=4):
         self.data = [[Cell() for i in range(size)] for j in range(size)]
         self.size = size
 
@@ -25,10 +25,11 @@ class Field:
             x = pair[0]
             y = pair[1]
             self.data[x][y].mines_count = Cell.MINE
-
+        print("HERE")
         for i in range(self.size):
             for j in range(self.size):
                 self.calculate_mines_count(i, j)
+            print()
 
     def calculate_mines_count(self, i, j):
         current_cell = self.data[i][j]
@@ -44,6 +45,21 @@ class Field:
                         count += 1
 
             current_cell.mines_count = count
+            print(count, end=' ')
+        else:
+            print("* ", end='')
+
+    def open_field(self):
+        for row in self.data:
+            for cell in row:
+                cell.is_open = True
+
+    def is_only_mines_left(self):
+        for row in self.data:
+            for cell in row:
+                if cell.mines_count != Cell.MINE and cell.is_open == False:
+                    return False
+        return True
 
     def get_value(self, x, y):
         pass

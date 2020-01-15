@@ -5,3 +5,5 @@ class Cell:
         self.is_open = False
         self.mines_count = 0
 
+
+print(Cell.MINE)
