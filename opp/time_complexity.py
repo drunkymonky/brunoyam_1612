@@ -57,15 +57,15 @@ print(quadr_result)
 # run_timed(second)
 # run_timed(third)
 
-import random
-
-numbers = []
-numbers_for_python = []
-n = 10000
-for i in range(n):
-    current_number = random.randint(0, 100000000)
-    numbers.append(current_number)
-    numbers_for_python.append(current_number)
+# import random
+#
+# numbers = []
+# numbers_for_python = []
+# n = 10000
+# for i in range(n):
+#     current_number = random.randint(0, 100000000)
+#     numbers.append(current_number)
+#     numbers_for_python.append(current_number)
 
 # run_timed(bubble_sort, numbers)
 # run_timed(python_sort, numbers_for_python)

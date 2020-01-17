@@ -21,6 +21,21 @@ def add_value(new_value, current_node):
             current_node.right = TreeNode(new_value)  # and new node
 
 
+def find(value, current_node):
+    if current_node.value == value:
+        return True
+    if current_node.value > value:
+        if current_node.left is not None:
+            return find(value, current_node.left)
+        else:
+            return False
+    if current_node.value < value:
+        if current_node.right is not None:
+            return find(value, current_node.right)
+        else:
+            return False
+
+
 def print_tree(current_node):
     print(current_node.value)
     if current_node.left is not None:
@@ -39,3 +54,5 @@ add_value(9, root)
 add_value(11, root)
 add_value(14, root)
 print_tree(root)
+print(find(5, root))
+print(find(15, root))
