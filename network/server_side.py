@@ -5,7 +5,7 @@ HOST = 'localhost'
 PORT = 12345
 
 
-def process_connection(sock, another_sock):
+def process_connection(sock, all_connections):
     while True:
         print(sock)
         print(addr)
@@ -13,8 +13,12 @@ def process_connection(sock, another_sock):
         print(data)
         decoded_data = data.decode('utf-8')
         print(decoded_data)
-        sock.sendall(data)
-        another_sock.sendall(data)
+        # sock.sendall(data)
+        # another_sock.sendall(data)
+        # задача
+        # отправить всем из списка another_sock полученное сообщение
+        for conn in all_connections:
+            conn.sendall(data)
 
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
@@ -22,16 +26,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
     server.bind((HOST, PORT))
     server.listen()
 
-    connection, addr = server.accept()
-    another_connection, addr = server.accept()
+    connections = []
 
-    threading.Thread(target=process_connection, args=(connection, another_connection)).start()
-    threading.Thread(target=process_connection, args=(another_connection, connection)).start()
-    # while True:
-    #     print(connection)
-    #     print(addr)
-    #     data = connection.recv(1024)
-    #     print(data)
-    #     decoded_data = data.decode('utf-8')
-    #     print(decoded_data)
-    #     connection.sendall(data)
+    while True:
+        connection, addr = server.accept()
+        connections.append(connection)
+        threading.Thread(target=process_connection, args=(connection, connections)).start()

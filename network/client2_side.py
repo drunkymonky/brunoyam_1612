@@ -1,21 +1,28 @@
 import socket
 import threading
+from tkinter import Tk
+
+from network.gui import Example
 
 HOST = 'localhost'
 # HOST = 'aud21-prep'
 PORT = 12345
 
 
-def receive_data(sock):
+def receive_data(sock, window):
     while True:
         data = sock.recv(1024)
         print(data)
+        window.add_input(data.decode())
 
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
     client.connect((HOST, PORT))
-    threading.Thread(target=receive_data, args=(client,)).start()
-    while True:
-        user_input = input()
-        client.sendall(bytes(user_input.encode('utf-8')))
+
+    root = Tk()
+    root.geometry('700x700+300+300')
+    app = Example(root, lambda x: client.sendall(x))
+    threading.Thread(target=receive_data, args=(client, app)).start()
+    root.mainloop()
+
 

@@ -1,50 +1,48 @@
-from tkinter import Frame, BOTH, Label, W, Tk, Text, S, N, E, Button, Listbox, END, Scrollbar, LEFT, Y, RIGHT
+from tkinter import Frame, BOTH, Label, W, Tk, Text, S, N, E, Listbox, END, Scrollbar, LEFT, Y, RIGHT, Button
 
 
 class Example(Frame):
-    def __init__(self, parent):
+    def __init__(self, parent, send_action):
         Frame.__init__(self, parent)
         self.parent = parent
+        self.action = send_action
         self.initUI()
+
+    def foo(self):
+        text = self.text_input.get(1.0, END).strip()
+        # self.list.insert(END, text)
+        self.action(bytes(text, 'utf-8'))
+        self.text_input.delete(1.0, END)
 
     def initUI(self):
         self.parent.title("Hello")
         self.pack(fill=BOTH, expand=True)
 
         self.columnconfigure(1,  weight=1)
-        self.columnconfigure(3, pad=7)
-        self.rowconfigure(3, weight=1)
-        self.rowconfigure(5, pad=7)
+        self.rowconfigure(4, weight=1)
 
-        lbl = Label(self, text='Windows')
-        lbl.grid(sticky=W, pady=4, padx=5)
+        self.list = Listbox(self)
+        self.list.grid(row=0, column=0, columnspan=2, rowspan=2,
+                   sticky=E+W+S+N)
 
-        self.area = Listbox(self)
-        self.area.grid(row=1, column=0, columnspan=2, rowspan=4,
-                  padx=5, sticky=E+W+S+N)
+        self.text_input = Text(self)
+        self.text_input.grid(row=3, column=0)
 
-        scroll = Scrollbar(self.area, command=self.area.yview)
+        self.ok_button = Button(self, text='SEND', command=self.foo)
+        self.ok_button.grid(row=4, column=1)
+
+        scroll = Scrollbar(self.list, command=self.list.yview)
         scroll.pack(side=RIGHT, fill=Y)
-        self.area.config(yscrollcommand=scroll.set)
+        self.list.config(yscrollcommand=scroll.set)
 
-        cbtn = Button(self, text='Close')
-        cbtn.grid(row=2, column=3, pady=4)
+    def add_input(self, value):
+        self.list.insert(END, value)
 
-        hbtn = Button(self, text='Help')
-        hbtn.grid(row=5, column=0, padx=5)
-
-        obtn = Button(self, text='OK')
-        obtn.grid(row=5, column=3)
-
-    def add_item(self, value):
-        self.area.insert(END, value)
 
 def main():
     root = Tk()
-    root.geometry('350x300+300+300')
+    root.geometry('700x700+300+300')
     app = Example(root)
-    for i in range(40):
-        app.add_item('hello')
     root.mainloop()
 
 
