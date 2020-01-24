@@ -22,9 +22,16 @@ thread2 = threading.Thread(target=foo2)
 import multiprocessing
 
 if __name__ == '__main__':
-    multiprocessing.Process(target=foo1).start()
+    proc1 = multiprocessing.Process(target=foo1)
+    proc1.start()
     print(time.time())
-    multiprocessing.Process(target=foo2).start()
+    proc2 = multiprocessing.Process(target=foo2)
+    proc2.start()
+
+    proc1.join()
+    proc2.join()
+
+
 
 # thread1.start()
 
