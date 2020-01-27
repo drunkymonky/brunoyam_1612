@@ -25,5 +25,5 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
     threading.Thread(target=receive_data, args=(client, window)).start()
     window.show()
     app.exec_()
-
+ 
 
