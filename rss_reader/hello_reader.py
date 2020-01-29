@@ -772,6 +772,6 @@ parser = XmlParser(helper)
 parser.parse_xml(data)
 
 loader = ContentLoader()
-xml = loader.load_page('https://www.championat.com/rss/news/hockey/superleague/')
+xml = data # loader.load_page('https://www.championat.com/rss/news/hockey/superleague/')
 print(xml)
-# parser.parse_xml(xml)
+parser.parse_xml(xml)
