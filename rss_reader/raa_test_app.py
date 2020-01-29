@@ -1,30 +1,30 @@
 import feedparser, requests
 
-#d = feedparser.parse('')
-#for post in d.entries
-    #print(post.title)
+d = feedparser.parse('https://news.rambler.ru/rss/Russia/?limit=100')
+for post in d.entries:
+    print(post.title)
 
-import xml
+'''import xml
 
 headers={'accept':'*/*',
          'user-agent': 'Chrome/79.0.3945.130'}
-url='https://lenta.ru/rss/news.xml'
+url='http://lenta.ru/rss/news.xml'
 
 def rss_parse(url, headers):
     session = requests.Session()
-    request=session.get(url, headers=headers)
+    request=session.get(url)
     #time.sleep(3)
 
     if request.status_code==200:
 
         print('OK', request.status_code)
-        page= feedparser.parse(url)
+        page= feedparser.parse(request.content.decode('utf-8'))
         return page
     else:
         pass
 
 
-print(rss_parse(url, headers))
+print(rss_parse(url, headers))'''
 
 
 
