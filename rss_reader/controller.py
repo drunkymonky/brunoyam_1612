@@ -1,7 +1,7 @@
-from rss_reader.gui import Window
+'''from rss_reader.gui import Window
 from rss_reader.xml_parser import XmlParser
 from rss_reader.database_helper import DBHelper
-from rss_reader.content_loader import ContentLoader
+from rss_reader.content_loader import ContentLoader'''
 
 
 
@@ -13,7 +13,8 @@ class Controller:
         self.news_item= None
 
     def add_source(self, value):
-        channel_for_add=self
+        self.db.add_channel(value,'','')
+        #channel_for_add=self
         """
         Добавление нового источника
         :param value:
@@ -35,6 +36,6 @@ class Controller:
         Загружаем RSS, разбираем его и обновляем View
         :return:
         """
-        data = self.content_loader.load_page(current_channel.link)
+        data = self.content_loader.load_page(self.db.get_channels)
         self.news_item.parse_xml(data)
-        update_news_list(self.db.get_news())
+        self.view.update_news_list(self.db.get_news())

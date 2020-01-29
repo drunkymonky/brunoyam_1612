@@ -54,9 +54,10 @@ class DBHelper:
         Возвращает список всех новостей, отсортированные по дате
         :rtype: List[NewsItem]
         """
-        pass
+        return select(p for p in NewsItem)[:]
+
 
     @db_session
     def get_channels(self):
-        pass
+        return select(p for p in ChannelItem)[:]
 
