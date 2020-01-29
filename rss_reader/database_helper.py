@@ -39,10 +39,9 @@ class DBHelper:
 
     @db_session
     def add_channel(self, title, link, desc):
-        current_channel = ChannelItem.get(title=title)
-        if current_channel is None:
-            return ChannelItem(title=title, link=link, desc=desc)
-        return current_channel
+        # current_channel = ChannelItem.get(title=title)
+        ChannelItem(title=title, link=link, desc=desc)
+        # if current_channel is None:
 
     @db_session
     def get_channel_id_by_title(self, title):

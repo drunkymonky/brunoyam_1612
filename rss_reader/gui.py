@@ -60,5 +60,6 @@ if __name__ == '__main__':
     app = QApplication([])
     ctrl = Controller()
     window = Window(ctrl)
+    ctrl.set_view(window)
     window.show()
     app.exec_()
