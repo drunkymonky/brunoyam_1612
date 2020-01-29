@@ -32,6 +32,7 @@ class DBHelper:
         :type values: List[NewsItem]
         :return:
         """
+        # TODO do not add same news
         for value in values:
             channel_data = ChannelItem.get(id=value['channel'])
             NewsItem(title=value['title'], desc=value['desc'], date=value['date'], channel=channel_data)
@@ -53,5 +54,9 @@ class DBHelper:
         Возвращает список всех новостей, отсортированные по дате
         :rtype: List[NewsItem]
         """
+        pass
+
+    @db_session
+    def get_channels(self):
         pass
 
