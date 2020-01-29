@@ -8,4 +8,4 @@ class ContentLoader:
         :param url:
         :rtype: str
         """
-        pass
+        return requests.get(url).content.decode('utf-8')
