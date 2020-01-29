@@ -5,9 +5,9 @@ from rss_reader.controller import Controller
 
 
 class Window(QWidget):
-    def __init__(self):
+    def __init__(self, ctrl):
         super().__init__()
-        self.controller = Controller()  # type: Controller
+        self.controller = ctrl  # type: Controller
         self.initUI()
 
     def initUI(self):
@@ -34,7 +34,7 @@ class Window(QWidget):
         dialog = QInputDialog(self)
         item, ok = dialog.getText(self, "Add channel", "Channel url:")
         if ok:
-            print('OK + ', item)
+            self.controller.add_source(item)
 
 
     def update_news_list(self, values):
@@ -43,17 +43,22 @@ class Window(QWidget):
         :param values:
         :return:
         """
-        pass
+        self.news_list.clear()
+        for value in values:
+            self.news_list.addItem(value.title)
 
     def update_source_list(self, values):
         """
         Обновление списка контактов (полностью)
         """
-        pass
+        self.channel_list.clear()
+        for value in values:
+            self.channel_list.addItem(value.title)
 
 
 if __name__ == '__main__':
     app = QApplication([])
-    window = Window()
+    ctrl = Controller()
+    window = Window(ctrl)
     window.show()
     app.exec_()
